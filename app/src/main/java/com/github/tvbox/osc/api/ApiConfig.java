@@ -82,6 +82,7 @@ public class ApiConfig {
     }
 
     public void loadConfig(boolean useCache, LoadConfigCallback callback, Activity activity) {
+        // Embedded Source : Update in Strings.xml if required
         String apiUrl = Hawk.get(HawkConfig.API_URL, HomeActivity.getRes().getString(R.string.app_source));
         if (apiUrl.isEmpty()) {
             callback.error("-1");
@@ -100,8 +101,6 @@ public class ApiConfig {
         String apiFix = apiUrl;
         if (apiUrl.startsWith("clan://")) {
             apiFix = clanToAddress(apiUrl);
-        }else if(!apiUrl.startsWith("http")){
-            apiFix = "http://" + apiFix;
         }
         OkGo.<String>get(apiFix)
                 .execute(new AbsCallback<String>() {
